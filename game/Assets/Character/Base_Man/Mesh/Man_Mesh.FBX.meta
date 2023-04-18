@@ -933,18 +933,18 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: upperarm_l
       parentName: clavicle_l
-      position: {x: -0.15784869, y: -0.000000007152557, z: 0.00000030517577}
-      rotation: {x: 0.013699035, y: 0.040999018, z: 0.19286229, w: 0.98027325}
+      position: {x: -0.15782078, y: -0.0000011250377, z: 0.00011625886}
+      rotation: {x: -0.1668008, y: 0.24608663, z: 0.5482707, w: 0.78167653}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerarm_l
       parentName: upperarm_l
-      position: {x: -0.2725091, y: 0.0022640657, z: -0.004692993}
-      rotation: {x: -0.06114053, y: 0.036121193, z: -0.022097027, w: 0.99723065}
+      position: {x: -0.27253327, y: 0.0022561848, z: -0.00461936}
+      rotation: {x: -0.031213675, y: 0.009049115, z: 0.19201647, w: 0.9808535}
       scale: {x: 1, y: 1, z: 1}
     - name: hand_l
       parentName: lowerarm_l
-      position: {x: -0.25592032, y: -0.004871683, z: 0.001396637}
-      rotation: {x: -0.6215369, y: -0.02690907, z: 0.10587131, w: 0.77573127}
+      position: {x: -0.25601676, y: -0.00486516, z: 0.0014473461}
+      rotation: {x: -0.6032344, y: -0.1521197, z: -0.05328743, w: 0.7811072}
       scale: {x: 1, y: 1, z: 1}
     - name: index_01_l
       parentName: hand_l
@@ -1033,8 +1033,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: upperarm_r
       parentName: clavicle_r
-      position: {x: 0.15784794, y: -0.00000005483627, z: -0.00000045776366}
-      rotation: {x: 0.013698984, y: 0.04099899, z: 0.19286227, w: 0.98027325}
+      position: {x: 0.15789957, y: 0.000031460077, z: -0.00020827353}
+      rotation: {x: 0.13659249, y: -0.61062944, z: 0.13684274, w: 0.7679507}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerarm_r
       parentName: upperarm_r
@@ -1164,7 +1164,7 @@ ModelImporter:
     - name: thigh_r
       parentName: pelvis
       position: {x: 0.014475621, y: -0.0053140256, z: 0.09005732}
-      rotation: {x: -0.06945105, y: 0.06685944, z: 0.99082357, w: 0.094736286}
+      rotation: {x: -0.06945106, y: 0.06685945, z: 0.9908236, w: 0.09473629}
       scale: {x: 1, y: 1, z: 1}
     - name: calf_r
       parentName: thigh_r

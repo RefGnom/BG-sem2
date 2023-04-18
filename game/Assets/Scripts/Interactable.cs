@@ -8,6 +8,11 @@ public class Interactable : MonoBehaviour
     Transform player;
     bool hasIteracted = false;
 
+    public void Start()
+    {
+        player = PlayerManager.instance.player.transform;
+    }
+
     public virtual void Interact()
     {
 
