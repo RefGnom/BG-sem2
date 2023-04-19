@@ -185,6 +185,8 @@ GameObject:
   - component: {fileID: 7804100552487762443}
   - component: {fileID: 7804100552487762442}
   - component: {fileID: 7804100552487762444}
+  - component: {fileID: -7267096499948530088}
+  - component: {fileID: 2662254283826600282}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -265,6 +267,34 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-7267096499948530088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804100552487762440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7297f3130c119f4a9e8f8e5124a3965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage:
+    baseValue: 40
+  maxHealth: 100
+--- !u!114 &2662254283826600282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804100552487762440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98a9d55440a57743abf008d8d5adcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSpeed: 1
 --- !u!1001 &7804100552655091125
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,16 +7,16 @@ public class EnemyContollor : MonoBehaviour
     public float lookRadius = 10f;
 
     Transform target;
-    NavMeshAgent agent; 
+    NavMeshAgent agent;
+    CharacterCombat combat;
 
-    // Start is called before the first frame update
     void Start()
     {
         target = PlayerManager.instance.player.transform;
+        combat = GetComponent<CharacterCombat>();
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         var distance = Vector3.Distance(transform.position, target.position);
@@ -26,7 +26,11 @@ public class EnemyContollor : MonoBehaviour
 
             if (distance <= agent.stoppingDistance)
             {
-                // Atack the target
+                var targetStats = target.GetComponent<CharacterStats>();
+                if (targetStats != null )
+                {
+                    combat.Attack(targetStats);
+                }
                 FaceTarget();
             }
         }
