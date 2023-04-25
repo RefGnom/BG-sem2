@@ -1,22 +1,44 @@
 using UnityEngine;
 
 [RequireComponent (typeof(CharacterStats))]
-public class Enemy : Interactable
+public class Enemy : MonoBehaviour
 {
+    public float attackRadius = 3f;
+    public Transform interactionTransform;
+
+    PlayerManager playerManager;
     CharacterStats myStats;
 
-    private new void Start()
+    void Start()
     {
-        base.Start();
+        playerManager = PlayerManager.instance;
         myStats = GetComponent<CharacterStats>();
     }
 
-    public override void Interact()
+    public void Update()
     {
-        CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
+        if (Input.GetMouseButtonDown(0))
+        {
+            float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
+            if (distance <= attackRadius)
+            {
+                Attack();
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        var playerCombat = playerManager.player.GetComponent<CharacterCombat>();
         if (playerCombat != null)
         {
             playerCombat.Attack(myStats);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(interactionTransform.position, attackRadius);
     }
 }

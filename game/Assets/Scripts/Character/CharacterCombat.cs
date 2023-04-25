@@ -9,9 +9,8 @@ public class CharacterCombat : MonoBehaviour
     private float attackCooldown = 0f;
     public float attackDelay = 1f;
 
-    public event Action OnAttack;
-
     CharacterStats myStats;
+    public Animator characterAnimator;
 
     private void Start()
     {
@@ -27,7 +26,10 @@ public class CharacterCombat : MonoBehaviour
     {
         if (attackCooldown <= 0)
         {
-            OnAttack?.Invoke();
+            if (characterAnimator != null)
+            {
+                characterAnimator.SetTrigger("IsPunch");
+            }
             StartCoroutine(DoDamage(targetStats, attackDelay));
             attackCooldown = 10 / attackSpeed;
             Debug.Log(gameObject.name + " ударил");
@@ -36,7 +38,7 @@ public class CharacterCombat : MonoBehaviour
 
     IEnumerator DoDamage(CharacterStats stats, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay * Time.deltaTime);
         stats.TakeDamage(myStats.damage.GetValue());
     }
 }
