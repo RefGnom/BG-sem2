@@ -5,12 +5,11 @@ public class Interactable : MonoBehaviour
     public float radius = 3f;
     public Transform interactionTransform;
 
-    Transform player;
-    bool hasIteracted = false;
+    protected PlayerManager playerManager;
 
     public void Start()
     {
-        player = PlayerManager.instance.player.transform;
+        playerManager = PlayerManager.instance;
     }
 
     public virtual void Interact()
@@ -20,13 +19,12 @@ public class Interactable : MonoBehaviour
 
     public void Update()
     {
-        if (!hasIteracted)
+        if (Input.GetMouseButtonDown(0))
         {
-            float distance = Vector3.Distance(interactionTransform.position, player.position);
+            float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
             if (distance <= radius)
             {
-                Debug.Log("Enteract");
-                hasIteracted = true;
+                Interact();
             }
         }
     }
