@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        Debug.Log("Рестарт!");
         PauseManager.SetPaused(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
