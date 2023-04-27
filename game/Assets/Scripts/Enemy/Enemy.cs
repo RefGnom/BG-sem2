@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     PlayerManager playerManager;
     CharacterStats myStats;
 
+    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+
     void Start()
     {
         playerManager = PlayerManager.instance;
@@ -17,6 +19,8 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
+        if (IsPaused)
+            return;
         if (Input.GetMouseButtonDown(0))
         {
             float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);

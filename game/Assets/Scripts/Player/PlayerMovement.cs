@@ -15,18 +15,30 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    Vector3 _velocity;
-    bool _isGrounded;
+    Vector3 velocity;
+    bool isGrounded;
+    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
 
     void Start()
     {
         speed = walkSpeed;
     }
 
+    void Update()
+    {
+        if (IsPaused)
+            return;
+        Move();
+        Sneak();
+        Jump();
+        Gravity();
+        CheckGround();
+    }
+
     void Gravity()
     {
-        _velocity.y += gravity * Time.deltaTime;
-        controller.Move(_velocity * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     void Move()
@@ -44,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && _isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            _velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
     }
 
@@ -62,19 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckGround()
     {
-        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (_isGrounded && _velocity.y < 0)
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
         {
-            _velocity.y = -2;
+            velocity.y = -2;
         }
-    }
-
-    void Update()
-    {
-        Move();
-        Sneak();
-        Jump();
-        Gravity();
-        CheckGround();
     }
 }

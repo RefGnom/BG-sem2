@@ -10,6 +10,8 @@ public class EnemyContollor : MonoBehaviour
     NavMeshAgent agent;
     CharacterCombat combat;
 
+    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+
     void Start()
     {
         target = PlayerManager.instance.player.transform;
@@ -19,6 +21,8 @@ public class EnemyContollor : MonoBehaviour
 
     void Update()
     {
+        if (IsPaused)
+            return;
         var distance = Vector3.Distance(transform.position, target.position);
         if (distance < lookRadius)
         {

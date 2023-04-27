@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : MonoBehaviour, IPauseHandler
 {
     public float mouseSensitivity = 500;
     public Transform playerBody;
-    private float _xRotation = 0; 
+    float xRotation = 0;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        GameManager.instance.PauseManager.Register(this);
     }
 
     void Update()
@@ -19,10 +17,18 @@ public class MouseLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        _xRotation -= mouseY;
-        _xRotation = Mathf.Clamp(_xRotation, -60, 60);
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -60, 60);
 
-        transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    public void SetPaused(bool isPaused)
+    {
+        if (isPaused)
+            Cursor.lockState = CursorLockMode.Confined;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 }
