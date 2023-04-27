@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour, IPauseHandler
 {
     public float radius = 3f;
     public Transform interactionTransform;
 
-    Transform player;
-    bool hasIteracted = false;
+    protected PlayerManager playerManager;
+
+    bool isPaused;
 
     public void Start()
     {
-        player = PlayerManager.instance.player.transform;
+        playerManager = PlayerManager.instance;
+        GameManager.instance.PauseManager.Register(this);
     }
 
     public virtual void Interact()
@@ -20,13 +22,14 @@ public class Interactable : MonoBehaviour
 
     public void Update()
     {
-        if (!hasIteracted)
+        if (isPaused)
+            return;
+        if (Input.GetMouseButtonDown(0))
         {
-            float distance = Vector3.Distance(interactionTransform.position, player.position);
+            float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
             if (distance <= radius)
             {
-                Debug.Log("Enteract");
-                hasIteracted = true;
+                Interact();
             }
         }
     }
@@ -35,5 +38,10 @@ public class Interactable : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
+    }
+
+    public void SetPaused(bool isPaused)
+    {
+        this.isPaused = isPaused;
     }
 }
