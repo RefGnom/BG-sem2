@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,13 +16,15 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    Vector3 velocity;
-    bool isGrounded;
-    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+    private Vector3 velocity;
+    private bool isGrounded;
+    private float sneakHeightDelta;
+    private bool IsPaused => GameManager.instance.PauseManager.IsPaused;
 
     void Start()
     {
         speed = walkSpeed;
+        sneakHeightDelta = controller.height - controller.radius * 2;
     }
 
     void Update()
@@ -64,12 +67,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Sneak()
     {
-        var sneak = Input.GetButton("Sneak");
-        animator.SetBool("IsSneak", sneak);
-        if (sneak)
+        if (Input.GetButtonDown("Sneak"))
+        {
+            controller.height -= sneakHeightDelta;
+            controller.center -= new Vector3(0, sneakHeightDelta / 2, 0);
+            EnemyContollor.lookRadius = EnemyContollor.sneakLookRadius;
             speed = sneakSpeed;
-        else
+            animator.SetBool("IsSneak", true);
+        }
+        if (Input.GetButtonUp("Sneak"))
+        {
+            controller.height += sneakHeightDelta;
+            controller.center += new Vector3(0, sneakHeightDelta / 2, 0);
+            EnemyContollor.lookRadius = EnemyContollor.defaultLookRadius;
             speed = walkSpeed;
+            animator.SetBool("IsSneak", false);
+        }
     }
 
     void CheckGround()
