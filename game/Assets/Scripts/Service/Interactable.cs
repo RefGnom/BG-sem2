@@ -1,36 +1,53 @@
+using System;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour, IPauseHandler
 {
-    public float radius = 3f;
-    public Transform interactionTransform;
+    [SerializeField] float radius = 3f;
+    [SerializeField] Transform interactionTransform;
 
     protected PlayerManager playerManager;
 
-    bool isPaused;
+    private bool isPaused;
+    private bool messageIsVisible;
+    private bool isBreak;
+    protected string message;
+    protected bool isSingleInteract;
 
     public void Start()
     {
         playerManager = PlayerManager.instance;
         GameManager.instance.PauseManager.Register(this);
+        Init();
     }
 
-    public virtual void Interact()
-    {
+    public virtual void Init() { }
 
+    /// <returns> return true if interact successful else false </returns>
+    public virtual bool Interact()
+    {
+        return false;
     }
 
     public void Update()
     {
-        if (isPaused)
+        if (isPaused || isBreak)
             return;
-        if (Input.GetMouseButtonDown(0))
+        var distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
+        if (distance <= radius)
         {
-            float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
-            if (distance <= radius)
+            if (!messageIsVisible)
+                Debug.Log($"{message} - \"E\"");
+            messageIsVisible = true;
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                Interact();
+                if (Interact() && isSingleInteract)
+                    isBreak = true;
             }
+        }
+        else
+        {
+            messageIsVisible = false;
         }
     }
 
