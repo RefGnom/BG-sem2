@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyContollor : MonoBehaviour
 {
-    public float lookRadius = 10f;
+    public static readonly float sneakLookRadius = 3f;
+    public static readonly float defaultLookRadius = 20f;
+    public static float lookRadius = 20f;
 
     Transform target;
     NavMeshAgent agent;
