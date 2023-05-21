@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyContollor : MonoBehaviour
 {
     public static readonly float sneakLookRadius = 3f;
-    public static readonly float defaultLookRadius = 20f;
-    public static float lookRadius = 20f;
-
+    public static readonly float defaultLookRadius = 12f;
+    public static float lookRadius;
+    [SerializeField] private List<Transform> points;
+    private int currentPointIndex;
     Transform target;
     NavMeshAgent agent;
     CharacterCombat combat;
@@ -18,6 +20,7 @@ public class EnemyContollor : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         combat = GetComponent<CharacterCombat>();
         agent = GetComponent<NavMeshAgent>();
+        lookRadius = defaultLookRadius;
     }
 
     void Update()
@@ -32,13 +35,29 @@ public class EnemyContollor : MonoBehaviour
             if (distance <= agent.stoppingDistance)
             {
                 var targetStats = target.GetComponent<CharacterStats>();
-                if (targetStats != null )
+                if (targetStats != null)
                 {
                     combat.Attack(targetStats);
                 }
                 FaceTarget();
             }
         }
+        else
+        {
+            var currentPoint = points[currentPointIndex];
+            agent.SetDestination(currentPoint.position);
+            var distance2 = Vector3.Distance(transform.position, currentPoint.position);        
+            if (distance2 <= 3) 
+            {
+                currentPointIndex = (currentPointIndex + 1) % points.Count;
+            }
+            Debug.Log(distance2);
+        }
+    }
+
+    void MoveTo()
+    {
+
     }
 
     void FaceTarget()

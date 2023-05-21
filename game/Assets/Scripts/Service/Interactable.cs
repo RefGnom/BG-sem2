@@ -1,10 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour, IPauseHandler
 {
     [SerializeField] float radius = 3f;
     [SerializeField] Transform interactionTransform;
+    [SerializeField] TMP_Text hint;
 
     protected PlayerManager playerManager;
 
@@ -37,7 +39,7 @@ public class Interactable : MonoBehaviour, IPauseHandler
         if (distance <= radius)
         {
             if (!messageIsVisible)
-                Debug.Log($"{message} - \"E\"");
+               ShowHint($"{message} \"E\"");
             messageIsVisible = true;
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -45,10 +47,16 @@ public class Interactable : MonoBehaviour, IPauseHandler
                     isBreak = true;
             }
         }
-        else
+        else if (messageIsVisible)
         {
+            ShowHint("");
             messageIsVisible = false;
         }
+    }
+
+   protected void ShowHint(string message)
+    {
+        hint.text = message;
     }
 
     void OnDrawGizmosSelected()
@@ -56,6 +64,8 @@ public class Interactable : MonoBehaviour, IPauseHandler
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
+
+    
 
     public void SetPaused(bool isPaused)
     {

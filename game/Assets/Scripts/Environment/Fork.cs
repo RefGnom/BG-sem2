@@ -12,6 +12,7 @@ public class Fork : Interactable
     {
         Debug.Log("Взяли вилку");
         PlayerItems.ForkIsCollected = true;
+        ShowHint("");
         Destroy(gameObject);
         return true;
     }

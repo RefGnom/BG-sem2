@@ -4,11 +4,18 @@ using UnityEngine;
 public class Door : Interactable
 {
     [SerializeField] Transform door;
-
+    [SerializeField] AudioSource playerFX;
     public override void Init()
     {
         message = "Открыть дверь";
         isSingleInteract = true;
+    }
+
+    IEnumerator ShowForkWarning()
+    {
+        ShowHint("Дверь Заперта!");
+        yield return new WaitForSeconds(1);
+        ShowHint("");
     }
 
     public override bool Interact()
@@ -17,14 +24,17 @@ public class Door : Interactable
         {
             Debug.Log("Дверь открыта");
             StartCoroutine(OpenDoor());
+            playerFX.Play();
+            PlayerItems.ForkIsCollected = false;
             return true;
         }
-        Debug.Log("Нужна вилка!");
+        StartCoroutine(ShowForkWarning());
         return false;
     }
 
     IEnumerator OpenDoor()
     {
+        ShowHint("");
         for (int i = 0; i < 90; i++)
         {
             door.Rotate(0, 1, 0);
