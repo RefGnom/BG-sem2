@@ -7,6 +7,8 @@ public class EnemyContollor : MonoBehaviour
     public static readonly float sneakLookRadius = 3f;
     public static readonly float defaultLookRadius = 12f;
     public static float lookRadius;
+    [SerializeField] private int maxCountUpdatesIterations = 1000;
+    private int countUpdatesIterations;
     [SerializeField] private List<Transform> points;
     private int currentPointIndex;
     Transform target;
@@ -30,6 +32,7 @@ public class EnemyContollor : MonoBehaviour
         var distance = Vector3.Distance(transform.position, target.position);
         if (distance < lookRadius)
         {
+            agent.speed = 4;
             agent.SetDestination(target.position);
 
             if (distance <= agent.stoppingDistance)
@@ -44,20 +47,17 @@ public class EnemyContollor : MonoBehaviour
         }
         else
         {
+            agent.speed = 2;
+            countUpdatesIterations++;
             var currentPoint = points[currentPointIndex];
             agent.SetDestination(currentPoint.position);
             var distance2 = Vector3.Distance(transform.position, currentPoint.position);        
-            if (distance2 <= 3) 
+            if (distance2 <= 3 && countUpdatesIterations >= maxCountUpdatesIterations) 
             {
                 currentPointIndex = (currentPointIndex + 1) % points.Count;
+                countUpdatesIterations = 0;
             }
-            Debug.Log(distance2);
         }
-    }
-
-    void MoveTo()
-    {
-
     }
 
     void FaceTarget()
