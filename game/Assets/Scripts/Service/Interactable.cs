@@ -8,6 +8,7 @@ public class Interactable : MonoBehaviour, IPauseHandler
     [SerializeField] Transform interactionTransform;
     [SerializeField] TMP_Text hint;
 
+
     protected PlayerManager playerManager;
 
     private bool isPaused;
@@ -33,6 +34,7 @@ public class Interactable : MonoBehaviour, IPauseHandler
 
     public void Update()
     {
+        
         if (isPaused || isBreak)
             return;
         var distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
@@ -43,8 +45,13 @@ public class Interactable : MonoBehaviour, IPauseHandler
             messageIsVisible = true;
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (Interact() && isSingleInteract)
+                var aue = Interact();
+                if (aue && isSingleInteract)
+                {
+                    Debug.Log("isBreak = true");
                     isBreak = true;
+                }
+                Debug.Log($"{aue} {isSingleInteract}");
             }
         }
         else if (messageIsVisible)
