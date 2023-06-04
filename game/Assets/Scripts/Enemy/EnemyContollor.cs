@@ -48,11 +48,14 @@ public class EnemyContollor : MonoBehaviour
         else
         {
             agent.speed = 2;
-            countUpdatesIterations++;
             var currentPoint = points[currentPointIndex];
             agent.SetDestination(currentPoint.position);
-            var distance2 = Vector3.Distance(transform.position, currentPoint.position);        
-            if (distance2 <= 3 && countUpdatesIterations >= maxCountUpdatesIterations) 
+            var distance2 = Vector3.Distance(transform.position, currentPoint.position);
+            if (distance2 <= 3)
+            {
+                countUpdatesIterations++;
+            }
+            if(countUpdatesIterations >= maxCountUpdatesIterations) 
             {
                 currentPointIndex = (currentPointIndex + 1) % points.Count;
                 countUpdatesIterations = 0;
