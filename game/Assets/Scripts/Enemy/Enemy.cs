@@ -39,10 +39,4 @@ public class Enemy : MonoBehaviour
             playerCombat.Attack(myStats);
         }
     }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(interactionTransform.position, attackRadius);
-    }
 }

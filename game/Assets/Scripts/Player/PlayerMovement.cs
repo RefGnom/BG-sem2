@@ -1,9 +1,8 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [SerializeField] private CharacterController controller;
 
     public float walkSpeed = 6;
     public float sneakSpeed = 2;
@@ -23,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        var collider = GetComponent<Collider>();
+        collider.tag = "Player";
         speed = walkSpeed;
         sneakHeightDelta = controller.height - controller.radius * 2;
     }
