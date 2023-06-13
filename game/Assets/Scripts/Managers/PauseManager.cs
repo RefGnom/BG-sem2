@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseManager : MonoBehaviour, IPauseHandler
+public class PauseManager : IPauseHandler
 {
-    List<IPauseHandler> handlers = new();
+    private readonly List<IPauseHandler> handlers = new();
     public bool IsPaused { get; private set; }
 
     public void Register(IPauseHandler handler)
@@ -11,7 +11,7 @@ public class PauseManager : MonoBehaviour, IPauseHandler
         handlers.Add(handler);
     }
 
-    public void UnRegister(IPauseHandler handler)
+    public void Unregister(IPauseHandler handler)
     {
         handlers.Remove(handler);
     }
