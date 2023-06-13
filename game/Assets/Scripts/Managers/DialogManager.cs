@@ -1,4 +1,5 @@
 using Assets.Scripts.Service;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class DialogManager : MonoBehaviour
 
     private Message message;
     private bool enabledDialog;
+
+    public Action OnEndDialog;
 
     public static DialogManager Instance;
 
@@ -49,6 +52,12 @@ public class DialogManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            if (message.Next is null)
+            {
+                Disable();
+                OnEndDialog?.Invoke();
+                return;
+            }
             message = message.Next;
         }
     }
