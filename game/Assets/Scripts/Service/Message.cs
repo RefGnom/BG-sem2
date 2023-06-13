@@ -3,7 +3,7 @@ using TMPro;
 
 namespace Assets.Scripts.Service
 {
-    internal class Message
+    public class Message
     {
         private int currentChoiceIndex;
 

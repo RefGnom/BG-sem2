@@ -1,69 +1,60 @@
-using System;
-using TMPro;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour, IPauseHandler
+public abstract class Interactable : MonoBehaviour, IPauseHandler
 {
     [SerializeField] float radius = 3f;
     [SerializeField] Transform interactionTransform;
-    [SerializeField] TMP_Text hint;
-
 
     protected PlayerManager playerManager;
 
-    private bool isPaused;
-    private bool messageIsVisible;
-    private bool isBreak;
-    protected string message;
+    protected string hintText;
     protected bool isSingleInteract;
+
+    private bool isPaused;
+    private bool hintIsVisible;
+    private bool isBreak;
 
     public void Start()
     {
         playerManager = PlayerManager.instance;
-        GameManager.instance.PauseManager.Register(this);
+        GameManager.Instance.PauseManager.Register(this);
         Init();
     }
 
-    public virtual void Init() { }
+    public abstract void Init();
 
-    /// <returns> return true if interact successful else false </returns>
-    public virtual bool Interact()
-    {
-        return false;
-    }
-
+    /// <returns>return true if interact successful else false</returns>
+    public abstract bool Interact();
+    
     public void Update()
     {
-        
         if (isPaused || isBreak)
             return;
         var distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
         if (distance <= radius)
         {
-            if (!messageIsVisible)
-               ShowHint($"{message} \"E\"");
-            messageIsVisible = true;
+            if (!hintIsVisible)
+               ShowHint($"{hintText} \"E\"");
+            hintIsVisible = true;
             if (Input.GetKeyDown(KeyCode.E))
             {
-                var aue = Interact();
-                if (aue && isSingleInteract)
+                if (Interact() && isSingleInteract)
                 {
-                    Debug.Log("isBreak = true");
                     isBreak = true;
+                    ShowHint("");
                 }
-                Debug.Log($"{aue} {isSingleInteract}");
             }
         }
-        else if (messageIsVisible)
+        else if (hintIsVisible)
         {
             ShowHint("");
-            messageIsVisible = false;
+            hintIsVisible = false;
         }
     }
 
    protected void ShowHint(string message)
     {
-        hint.text = message;
+        GameManager.Instance.PlayerHint.text = message;
     }
 
     void OnDrawGizmosSelected()
@@ -71,8 +62,6 @@ public class Interactable : MonoBehaviour, IPauseHandler
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
-
-    
 
     public void SetPaused(bool isPaused)
     {

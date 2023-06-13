@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     PlayerManager playerManager;
     CharacterStats myStats;
 
-    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+    bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
 
     void Start()
     {

@@ -21,7 +21,7 @@ public class EnemyContollor : MonoBehaviour
     private NavMeshAgent agent;
     private CharacterCombat combat;
 
-    bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+    bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
 
     void Start()
     {
