@@ -1,16 +1,20 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-    public PauseManager PauseManager { get; private set; }
-
     [SerializeField] GameObject deathScreen;
+    [SerializeField] TextMeshProUGUI playerHint;
+
+    public PauseManager PauseManager { get; private set; }
+    public TextMeshProUGUI PlayerHint => playerHint;
+
+    public static GameManager Instance;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
         PauseManager = new();
     }
 

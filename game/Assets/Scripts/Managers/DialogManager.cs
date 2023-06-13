@@ -8,24 +8,20 @@ public class DialogManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] List<TextMeshProUGUI> choiceList;
 
-    Message message;
-    bool enabledDialog;
+    private Message message;
+    private bool enabledDialog;
 
-    public static DialogManager instance;
+    public static DialogManager Instance;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
-    void Start()
-    {
-        message = DialogSystem.GetMessage();
-    }
-
-    public void Enable()
+    public void Enable(Message message)
     {
         enabledDialog = true;
+        this.message = message;
     }
 
     public void Disable()
@@ -45,11 +41,11 @@ public class DialogManager : MonoBehaviour
         UpdateUI();
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            message.MoveBack();
+            message.MoveNext();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            message.MoveNext();
+            message.MoveBack();
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {

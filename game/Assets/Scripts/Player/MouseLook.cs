@@ -9,7 +9,7 @@ public class MouseLook : MonoBehaviour, IPauseHandler
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        GameManager.instance.PauseManager.Register(this);
+        GameManager.Instance.PauseManager.Register(this);
     }
 
     void Update()

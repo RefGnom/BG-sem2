@@ -5,43 +5,42 @@ public class Door : Interactable
 {
     [SerializeField] Transform door;
     [SerializeField] AudioSource playerFX;
-    [SerializeField] bool isLocked;
+
+    protected virtual bool IsUnlocked => true;
+
     public override void Init()
     {
-        message = "Открыть дверь";
+        hintText = "Открыть дверь";
         isSingleInteract = true;
     }
 
-    IEnumerator ShowForkWarning()
+    IEnumerator ShowWarning()
     {
-        ShowHint("Дверь Заперта!");
+        ShowHint("Дверь заперта!");
         yield return new WaitForSeconds(1);
         ShowHint("");
     }
 
     public override bool Interact()
     {
-        if (PlayerItems.ForkIsCollected || !isLocked)
+        if (IsUnlocked)
         {
-            Debug.Log("1");
             StartCoroutine(OpenDoor());
-            playerFX.Play();
-            PlayerItems.ForkIsCollected = false;
+            if (playerFX != null)
+                playerFX.Play();
             return true;
         }
-        StartCoroutine(ShowForkWarning());
-        return true;
+        StartCoroutine(ShowWarning());
+        return false;
     }
 
     IEnumerator OpenDoor()
     {
-        Debug.Log("Start");
         ShowHint("");
         for (int i = 0; i < 90; i++)
         {
             door.Rotate(0, 1, 0);
             yield return new WaitForSeconds(0.01f);
         }
-        Debug.Log("End");
     }
 }

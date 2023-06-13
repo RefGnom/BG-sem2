@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private float sneakHeightDelta;
-    private bool IsPaused => GameManager.instance.PauseManager.IsPaused;
+    private bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
 
     void Start()
     {
