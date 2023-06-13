@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Service;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Environment
 {
@@ -13,7 +14,11 @@ namespace Assets.Scripts.Environment
 
         public override bool Interact()
         {
-            DialogManager.Instance.Enable(DialogSystem.GetMessage());
+            DialogManager.Instance.Enable(DialogSystem.GetFirstMessage());
+            DialogManager.Instance.OnEndDialog = () =>
+            {
+                SceneManager.LoadScene("Second", LoadSceneMode.Single);
+            };
             return true;
         }
     }
