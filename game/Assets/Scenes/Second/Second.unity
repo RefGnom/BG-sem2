@@ -3159,7 +3159,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 5f045241788ff2e4994480cb915db7ae, type: 3}
       propertyPath: m_Name
-      value: RowBoat_01_a
+      value: Boat
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5f045241788ff2e4994480cb915db7ae, type: 3}
       propertyPath: m_RootOrder
@@ -8975,6 +8975,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 5f045241788ff2e4994480cb915db7ae, type: 3}
+--- !u!114 &1622138263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622138258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382cdc4c1b157e041a6be1d8c66c40ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2.81
+  interactionTransform: {fileID: 1824047284}
+--- !u!4 &1622138266 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 5f045241788ff2e4994480cb915db7ae, type: 3}
+  m_PrefabInstance: {fileID: 581811230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1623914579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9861,6 +9880,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: a7bf09e66f48b454494b6f1e2cd639cb, type: 3}
+--- !u!1 &1824047283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1824047284}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1824047284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824047283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1622138266}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1834390635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 77b0611b275bd694e8fd6a23a47d1221, type: 3}

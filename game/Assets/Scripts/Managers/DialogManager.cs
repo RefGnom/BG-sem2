@@ -12,8 +12,6 @@ public class DialogManager : MonoBehaviour
     private Message message;
     private bool enabledDialog;
 
-    public Action OnEndDialog;
-
     public static DialogManager Instance;
 
     void Awake()
@@ -44,18 +42,18 @@ public class DialogManager : MonoBehaviour
         UpdateUI();
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            message.MoveNext();
+            message.MoveNextChoice();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            message.MoveBack();
+            message.MoveBackChoice();
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            message.OnNext?.Invoke();
             if (message.Next is null)
             {
                 Disable();
-                OnEndDialog?.Invoke();
                 return;
             }
             message = message.Next;

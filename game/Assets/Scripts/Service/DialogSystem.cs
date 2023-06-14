@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Service
 {
@@ -36,7 +37,12 @@ namespace Assets.Scripts.Service
             parent.Next = firstBranch.Next;
 
             secondBranch = secondBranch.Next;
-            secondBranch.Next = new Message("The end");
+            secondBranch.OnNext += () =>
+            {
+                GameManager.Instance.ShowDeathScreen();
+                GameManager.Instance.PauseManager.SetPaused(true);
+                Settings.PlayerIsLocked = false;
+            };
 
             firstBranch = firstBranch.Next;
             firstBranch.Next = new Message("Дух: В ответ на твою доброту я отпущу тебя");
@@ -44,6 +50,12 @@ namespace Assets.Scripts.Service
             firstBranch.Next = new Message("Спасибо тебе, у тебя огромная душа");
             firstBranch = firstBranch.Next;
             firstBranch.Next = new Message("Дух: Зачем мне все эти завоевания, если одно слово для меня слаще всей жизни");
+            firstBranch = firstBranch.Next;
+            firstBranch.OnNext += () =>
+            {
+                SceneManager.LoadScene("Second", LoadSceneMode.Single);
+                Settings.PlayerIsLocked = false;
+            };
             return parent;
         }
 

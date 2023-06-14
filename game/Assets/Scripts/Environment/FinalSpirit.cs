@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.Service;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Environment
 {
@@ -14,11 +12,8 @@ namespace Assets.Scripts.Environment
 
         public override bool Interact()
         {
+            Settings.PlayerIsLocked = true;
             DialogManager.Instance.Enable(DialogSystem.GetFirstMessage());
-            DialogManager.Instance.OnEndDialog = () =>
-            {
-                SceneManager.LoadScene("Second", LoadSceneMode.Single);
-            };
             return true;
         }
     }

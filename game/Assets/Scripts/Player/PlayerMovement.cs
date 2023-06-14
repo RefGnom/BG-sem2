@@ -1,3 +1,4 @@
+using Assets.Scripts.Service;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -32,9 +33,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsPaused)
             return;
-        Move();
-        Sneak();
-        Jump();
+        if (Settings.PlayerIsLocked)
+        {
+            animator.SetBool("IsRun", false);
+            animator.SetBool("IsSneak", false);
+        }
+        else
+        {
+            Move();
+            Sneak();
+            Jump();
+        }
         Gravity();
         CheckGround();
     }
@@ -55,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsRun", true);
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(speed * Time.deltaTime * move);
     }
 
     void Jump()

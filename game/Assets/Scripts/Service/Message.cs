@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 
 namespace Assets.Scripts.Service
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Service
         public readonly List<Message> Choices;
         public FontStyles Style { get; set; }
         public Message Next { get; set; }
+        public Action OnNext { get; set; }
 
         public Message(string text, FontStyles style = FontStyles.Normal)
         {
@@ -26,7 +28,7 @@ namespace Assets.Scripts.Service
             Style = style;
         }
 
-        public void MoveNext()
+        public void MoveNextChoice()
         {
             if (Choices.Count == 0 || currentChoiceIndex == Choices.Count - 1)
                 return;
@@ -36,7 +38,7 @@ namespace Assets.Scripts.Service
             Choices[currentChoiceIndex].Style = FontStyles.Bold;
         }
 
-        public void MoveBack()
+        public void MoveBackChoice()
         {
             if (Choices.Count == 0 || currentChoiceIndex == 0)
                 return;
