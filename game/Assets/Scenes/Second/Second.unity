@@ -1178,6 +1178,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Setup
       objectReference: {fileID: 0}
+    - target: {fileID: 3316617871829308361, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
+      propertyPath: walkSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316617871829308361, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
+      propertyPath: jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316617871829308361, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
+      propertyPath: sneakSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
 --- !u!1001 &206834286
@@ -3479,6 +3491,14 @@ PrefabInstance:
     - target: {fileID: 524807373763167656, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
       propertyPath: m_Name
       value: Enemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 524807373763167660, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
+      propertyPath: m_Speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 524807373763167660, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 524807373763167662, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
       propertyPath: points.Array.size
@@ -5923,6 +5943,10 @@ PrefabInstance:
     - target: {fileID: 524807373763167656, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
       propertyPath: m_Name
       value: Enemy5
+      objectReference: {fileID: 0}
+    - target: {fileID: 524807373763167660, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
+      propertyPath: m_Speed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 524807373763167662, guid: b11878dbadb023d47aaf61796ed269d8, type: 3}
       propertyPath: points.Array.size
