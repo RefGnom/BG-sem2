@@ -688,6 +688,10 @@ PrefabInstance:
       propertyPath: isPrologue
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7470929234768195443, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
+      propertyPath: isPrologue
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb97516b2204154a94c8a6533e3ce19, type: 3}
 --- !u!1 &1913676196

@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         {
             controller.height -= sneakHeightDelta;
             controller.center -= new Vector3(0, sneakHeightDelta / 2, 0);
-            EnemyContollor.lookRadius = EnemyContollor.sneakLookRadius;
+            Settings.PlayerIsSit = true;
             speed = sneakSpeed;
             animator.SetBool("IsSneak", true);
         }
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
             controller.height += sneakHeightDelta;
             controller.center += new Vector3(0, sneakHeightDelta / 2, 0);
-            EnemyContollor.lookRadius = EnemyContollor.defaultLookRadius;
+            Settings.PlayerIsSit = false;
             speed = walkSpeed;
             animator.SetBool("IsSneak", false);
         }
