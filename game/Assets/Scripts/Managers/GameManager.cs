@@ -1,3 +1,4 @@
+using Assets.Scripts.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,9 +7,11 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject deathScreen;
     [SerializeField] TextMeshProUGUI playerHint;
+    [SerializeField] bool isPrologue;
 
     public PauseManager PauseManager { get; private set; }
     public TextMeshProUGUI PlayerHint => playerHint;
+    public GameObject Player;
 
     public static GameManager Instance;
 
@@ -16,6 +19,12 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         PauseManager = new();
+        if (isPrologue)
+        {
+            Player.GetComponent<PlayerMovement>().StartPray();
+            DialogManager.Instance.Enable(DialogSystem.GetInitMessage());
+            Settings.PlayerIsLocked = true;
+        }
     }
 
     public void HideDeathScreen()

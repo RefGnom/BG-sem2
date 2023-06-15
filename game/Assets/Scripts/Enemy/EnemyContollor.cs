@@ -25,7 +25,7 @@ public class EnemyContollor : MonoBehaviour
 
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = GameManager.Instance.Player.transform;
         combat = GetComponent<CharacterCombat>();
         agent = GetComponent<NavMeshAgent>();
         lookRadius = defaultLookRadius;
