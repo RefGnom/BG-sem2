@@ -14,7 +14,13 @@ namespace Assets.Scripts.Service
             message = message.Next;
             message.Next = new Message("Дух: Но всегда помни, что только человек с большой душой и добротой ко всем сможет пройти этот путь...");
             message = message.Next;
-            message.Next = new Message("В эту ночь происходит ужасное. На поселение нападают духи, крушат все вокруг и забирают главного героя в плен.", FontStyles.Italic | FontStyles.Bold);
+            message.Next = new Message("В эту ночь происходит ужасное. На поселение нападают духи, крушат все вокруг и забирают вас в плен.", FontStyles.Italic | FontStyles.Bold);
+            message = message.Next;
+            message.OnNext += () =>
+            {
+                SceneManager.LoadScene("First", LoadSceneMode.Single);
+                Settings.PlayerIsLocked = false;
+            };
             return parent;
         }
 

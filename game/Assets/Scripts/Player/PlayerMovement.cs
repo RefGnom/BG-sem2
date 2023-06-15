@@ -21,6 +21,16 @@ public class PlayerMovement : MonoBehaviour
     private float sneakHeightDelta;
     private bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
 
+    public void StartPray()
+    {
+        animator.SetBool("IsPray", true);
+    }
+
+    public void EndPray()
+    {
+        animator.SetBool("IsPray", false);
+    }
+
     void Start()
     {
         var collider = GetComponent<Collider>();

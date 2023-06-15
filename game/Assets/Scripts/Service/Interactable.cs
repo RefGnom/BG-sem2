@@ -5,8 +5,6 @@ public abstract class Interactable : MonoBehaviour, IPauseHandler
     [SerializeField] float radius = 3f;
     [SerializeField] Transform interactionTransform;
 
-    protected PlayerManager playerManager;
-
     protected string hintText;
     protected bool isSingleInteract;
 
@@ -16,7 +14,6 @@ public abstract class Interactable : MonoBehaviour, IPauseHandler
 
     public void Start()
     {
-        playerManager = PlayerManager.instance;
         GameManager.Instance.PauseManager.Register(this);
         Init();
     }
@@ -30,7 +27,7 @@ public abstract class Interactable : MonoBehaviour, IPauseHandler
     {
         if (isPaused || isBreak)
             return;
-        var distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
+        var distance = Vector3.Distance(interactionTransform.position, GameManager.Instance.Player.transform.position);
         if (distance <= radius)
         {
             if (!hintIsVisible)
