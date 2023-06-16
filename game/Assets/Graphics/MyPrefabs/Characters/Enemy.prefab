@@ -89,7 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547f9cae9cd174d448b2beaf66f13d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewAngle: 75
   detectionRadius: 3
+  sneakLookRadius: 10
+  defaultLookRadius: 16
+  lookRadius: 16
   maxCountUpdatesIterations: 1000
   points: []
   eye: {fileID: 3471023579846102627}

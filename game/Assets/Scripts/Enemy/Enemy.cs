@@ -6,14 +6,14 @@ public class Enemy : MonoBehaviour
     public float attackRadius = 3f;
     public Transform interactionTransform;
 
-    PlayerManager playerManager;
-    CharacterStats myStats;
+    private GameManager gameManager;
+    private CharacterStats myStats;
 
-    bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
+    private bool IsPaused => GameManager.Instance.PauseManager.IsPaused;
 
     void Start()
     {
-        playerManager = PlayerManager.instance;
+        gameManager = GameManager.Instance;
         myStats = GetComponent<CharacterStats>();
     }
 
@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
             return;
         if (Input.GetMouseButtonDown(0))
         {
-            float distance = Vector3.Distance(interactionTransform.position, playerManager.player.transform.position);
+            float distance = Vector3.Distance(interactionTransform.position, gameManager.Player.transform.position);
             if (distance <= attackRadius)
             {
                 Attack();
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        var playerCombat = playerManager.player.GetComponent<CharacterCombat>();
+        var playerCombat = gameManager.Player.GetComponent<CharacterCombat>();
         if (playerCombat != null)
         {
             playerCombat.Attack(myStats);

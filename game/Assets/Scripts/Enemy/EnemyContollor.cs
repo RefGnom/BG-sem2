@@ -1,3 +1,4 @@
+using Assets.Scripts.Service;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +7,17 @@ using UnityEngine.AI;
 public class EnemyContollor : MonoBehaviour
 {
     [SerializeField][Range(0, 360)] float viewAngle = 75f;
-    [SerializeField] private float detectionRadius = 3f;
-    public static readonly float sneakLookRadius = 7f;
-    public static readonly float defaultLookRadius = 15f;
-    public static float lookRadius;
+    [SerializeField] float detectionRadius = 3f;
+    [SerializeField] float sneakLookRadius = 7f;
+    [SerializeField] float defaultLookRadius = 15f;
+    [SerializeField] float lookRadius = 15f;
 
     [SerializeField] private int maxCountUpdatesIterations = 1000;
     [SerializeField] private List<Transform> points;
     private int countUpdatesIterations;
     private int currentPointIndex;
+    private readonly int ChaseTime = 600;
+    private int ChaseTimeLeft;
 
     [SerializeField] private Transform eye;
     private Transform target;
@@ -25,7 +28,7 @@ public class EnemyContollor : MonoBehaviour
 
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = GameManager.Instance.Player.transform;
         combat = GetComponent<CharacterCombat>();
         agent = GetComponent<NavMeshAgent>();
         lookRadius = defaultLookRadius;
@@ -35,16 +38,28 @@ public class EnemyContollor : MonoBehaviour
     {
         if (IsPaused)
             return;
+        UpdateLookRadius();
         DrawViewField();
         var distance = Vector3.Distance(transform.position, target.position);
-        if (distance < detectionRadius || TargetDetected())
+        if (!Settings.EnemiesIsPeaceful && (distance < detectionRadius || TargetDetected()))
         {
             ChaseState(distance);
+            ChaseTimeLeft = 0;
         }
-        else
+        else 
         {
-            IdleState();
+            if (ChaseTimeLeft > ChaseTime)
+                IdleState();
+            ChaseTimeLeft++;
         }
+    }
+
+    private void UpdateLookRadius()
+    {
+        if (Settings.PlayerIsSit)
+            lookRadius = sneakLookRadius;
+        else
+            lookRadius = defaultLookRadius;
     }
 
     private void ChaseState(float distance)

@@ -7,6 +7,7 @@ namespace Assets.Scripts.Service
     public class Message
     {
         private int currentChoiceIndex;
+        private bool getNextFromChoice;
 
         public readonly string Text;
         public readonly List<Message> Choices;
@@ -14,18 +15,22 @@ namespace Assets.Scripts.Service
         public Message Next { get; set; }
         public Action OnNext { get; set; }
 
-        public Message(string text, FontStyles style = FontStyles.Normal)
+        public Message(string text, FontStyles style = FontStyles.Normal, bool getNextFromChoice = true)
         {
             Text = text;
             Style = style;
             Choices = new();
+            this.getNextFromChoice = getNextFromChoice;
         }
 
-        public Message(string text, List<Message> choices, FontStyles style = FontStyles.Normal)
+        public Message(string text, List<Message> choices, FontStyles style = FontStyles.Normal, bool getNextFromChoice = true)
         {
             Text = text;
             Choices = choices;
             Style = style;
+            Next = Choices[0].Next;
+            OnNext = Choices[0].OnNext;
+            this.getNextFromChoice = getNextFromChoice;
         }
 
         public void MoveNextChoice()
@@ -34,7 +39,9 @@ namespace Assets.Scripts.Service
                 return;
             Choices[currentChoiceIndex].Style = FontStyles.Normal;
             currentChoiceIndex++;
-            Next = Choices[currentChoiceIndex].Next;
+            if (getNextFromChoice)
+                Next = Choices[currentChoiceIndex].Next;
+            OnNext = Choices[currentChoiceIndex].OnNext;
             Choices[currentChoiceIndex].Style = FontStyles.Bold;
         }
 
@@ -44,7 +51,9 @@ namespace Assets.Scripts.Service
                 return;
             Choices[currentChoiceIndex].Style = FontStyles.Normal;
             currentChoiceIndex--;
-            Next = Choices[currentChoiceIndex].Next;
+            if (getNextFromChoice)
+                Next = Choices[currentChoiceIndex].Next;
+            OnNext = Choices[currentChoiceIndex].OnNext;
             Choices[currentChoiceIndex].Style = FontStyles.Bold;
         }
     }
